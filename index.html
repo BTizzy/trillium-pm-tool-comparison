@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Management Tool Comparison - Trillium Hiring Services</title>
+    <style>
+        :root {
+            --color-bg-base: #0f172a;
+            --color-bg-elevated: #1e293b;
+            --color-bg-surface: #334155;
+            --color-text-primary: #f1f5f9;
+            --color-text-secondary: #cbd5e1;
+            --color-text-muted: #94a3b8;
+            --color-accent: #38bdf8;
+            --color-success: #22c55e;
+            --color-warning: #fbbf24;
+            --color-border: rgba(148, 163, 184, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--color-bg-base);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 2px solid var(--color-accent);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-accent);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--color-text-secondary);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            background: var(--color-bg-elevated);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .section h2 {
+            color: var(--color-accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 0.5rem;
+        }
+
+        .section h3 {
+            color: var(--color-success);
+            margin: 1.5rem 0 1rem 0;
+            font-size: 1.4rem;
+        }
+
+        .requirements {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .requirement-card {
+            background: var(--color-bg-surface);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--color-accent);
+        }
+
+        .requirement-card strong {
+            color: var(--color-accent);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .comparison-table {
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--color-bg-surface);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: var(--color-accent);
+            color: var(--color-bg-base);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        tr:hover {
+            background: rgba(56, 189, 248, 0.05);
+        }
+
+        .tool-header {
+            font-weight: 600;
+            color: var(--color-accent);
+        }
+
+        .star-rating {
+            color: var(--color-warning);
+            font-size: 1.2rem;
+        }
+
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .bullet-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .bullet-list li:before {
+            content: "▸";
+            color: var(--color-accent);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .highlight-box {
+            background: rgba(56, 189, 248, 0.1);
+            border-left: 4px solid var(--color-accent);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box h3 {
+            margin-top: 0;
+        }
+
+        .recommendation {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(56, 189, 248, 0.2) 100%);
+            border: 2px solid var(--color-success);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .recommendation h2 {
+            color: var(--color-success);
+            border-bottom: 2px solid var(--color-success);
+        }
+
+        .cost-badge {
+            display: inline-block;
+            background: var(--color-success);
+            color: var(--color-bg-base);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            margin: 0.5rem 0;
+        }
+
+        .icon-check {
+            color: var(--color-success);
+        }
+
+        .icon-warning {
+            color: var(--color-warning);
+        }
+
+        .icon-cross {
+            color: #ef4444;
+        }
+
+        .questions {
+            background: var(--color-bg-surface);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .questions ol {
+            padding-left: 1.5rem;
+        }
+
+        .questions li {
+            margin: 1rem 0;
+            color: var(--color-text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .section {
+                padding: 1rem;
+            }
+            
+            table {
+                font-size: 0.9rem;
+            }
+            
+            th, td {
+                padding: 0.5rem;
+            }
+        }
+
+        .nav-links {
+            position: fixed;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            background: var(--color-bg-elevated);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+            max-height: 80vh;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .nav-links a {
+            display: block;
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            padding: 0.5rem;
+            margin: 0.25rem 0;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-accent);
+            background: var(--color-bg-surface);
+        }
+
+        @media (max-width: 1200px) {
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Project Management Tool Comparison for Trillium Hiring Services</h1>
+        <p>A comprehensive comparison of the top 5 PM tools for our small team building/growing Trilly Co.</p>
+    </div>
+
+    <nav class="nav-links">
+        <a href="#context">Context</a>
+        <a href="#comparison-table">Comparison Table</a>
+        <a href="#clickup">ClickUp</a>
+        <a href="#motion">Motion</a>
+        <a href="#asana">Asana</a>
+        <a href="#monday">Monday.com</a>
+        <a href="#notion">Notion</a>
+        <a href="#recommendation">Final Recommendation</a>
+        <a href="#integration">Integration Notes</a>
+        <a href="#questions">Questions</a>
+    </nav>
+
+    <div class="container">
+        <div class="section" id="context">
+            <h2>Context from Your Meetings</h2>
+            <h3>Key Requirements Identified:</h3>
+            <div class="requirements">
+                <div class="requirement-card">
+                    <strong>Amy:</strong> Wants automation, connectivity with Greenhouse &amp; Slack, client-facing capabilities
+                </div>
+                <div class="requirement-card">
+                    <strong>Keenan:</strong> Needs simple Kanban! Easy to Use!
+                </div>
+                <div class="requirement-card">
+                    <strong>Ryan:</strong> Wants meeting notes → actionable tasks (Fireflies integration), needs client templates
+                </div>
+                <div class="requirement-card">
+                    <strong>James (Business Advisor):</strong> Uses Motion, recommends strong connectivity and AI agents
+                </div>
+                <div class="requirement-card">
+                    <strong>Team Size:</strong> Small (5-10 people), focused on HR/hiring services for SMBs &amp; startups
+                </div>
+                <div class="requirement-card">
+                    <strong>Upcoming:</strong> HubSpot integration needed within a week
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="comparison-table">
+            <h2>Top 5 PM Tools Comparison Table</h2>
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>ClickUp <span class="star-rating">⭐</span> (Amy's Choice)</th>
+                            <th>Motion <span class="star-rating">⭐</span> (James's Choice)</th>
+                            <th>Asana</th>
+                            <th>Monday.com</th>
+                            <th>Notion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="tool-header">Pricing (2026)</td>
+                            <td><strong>Free: $0</strong><br>Unlimited: $7/user/mo<br>Business: $12/user/mo<br>Enterprise: Custom</td>
+                            <td><strong>Individual: $29-49/mo (1 seat)</strong><br>Team: $12-19/seat/mo (3+ seats)</td>
+                            <td><strong>Free: $0</strong><br>Starter: $10.99/user/mo<br>Advanced: $24.99/user/mo<br>Enterprise: Custom</td>
+                            <td><strong>Free: $0</strong><br>Basic: $9/user/mo<br>Standard: $12/user/mo<br>Pro: $19/user/mo</td>
+                            <td><strong>Free: $0</strong><br>Plus: $10/user/mo<br>Business: $18/user/mo<br>AI: +$10/user/mo</td>
+                        </tr>
+                        <tr>
+                            <td class="tool-header">Best Use Case</td>
+                            <td><strong>All-in-one consolidation for growing teams with complex workflows</strong></td>
+                            <td><strong>Individual productivity + AI-first automation for time-strapped consultants</strong></td>
+                            <td><strong>Mixed teams needing structured workflows &amp; reporting</strong></td>
+                            <td><strong>Visual project management with heavy automation needs</strong></td>
+                            <td><strong>Documentation + PM hybrid for knowledge-centric teams</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="tool-header">Core Strengths</td>
+                            <td>
+                                <ul class="bullet-list">
+                                    <li>1000+ integrations</li>
+                                    <li>Highly customizable</li>
+                                    <li>Strong client-sharing</li>
+                                    <li>All views (Kanban, Gantt, Timeline, Calendar)</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul class="bullet-list">
+                                    <li>AI auto-scheduling</li>
+                                    <li>Built-in meeting assistant</li>
+                                    <li>AI Employees/agents</li>
+                                    <li>Calendar-first approach</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul class="bullet-list">
+                                    <li>Mature platform</li>
+                                    <li>Strong Goals/Portfolios</li>
+                                    <li>Enterprise-ready</li>
+                                    <li>Excellent reporting</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul class="bullet-list">
+                                    <li>Visual/intuitive UI</li>
+                                    <li>Powerful automations</li>
+                                    <li>Great for non-technical users</li>
+                                    <li>CRM capabilities</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul class="bullet-list">
+                                    <li>Flexible databases</li>
+                                    <li>Wiki + PM combo</li>
+                                    <li>Great for templates</li>
+                                    <li>Knowledge management</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tool-header">Automation</td>
+                            <td>1,000 actions/mo (Unlimited)<br>Advanced workflow builder<br>ClickUp Brain AI assistant</td>
+                            <td>AI auto-scheduling<br>AI Employees for tasks<br>Built-in smart agents</td>
+                            <td>Unlimited automations (Starter+)<br>Workflow Builder<br>Asana AI</td>
+                            <td>250-25,000+ actions/mo by tier<br>Intuitive automation builder<br>Best for auto-reports</td>
+                            <td>Custom automations<br>Database automations<br>Limited compared to others</td>
+                        </tr>
+                        <tr>
+                            <td class="tool-header">AI/Agentic Features</td>
+                            <td><span class="icon-check">✅</span> ClickUp Brain: task summaries, content generation, Q&amp;A about projects, meeting transcription</td>
+                            <td><span class="icon-check">✅✅</span> STRONGEST: AI Employees, auto-scheduling, email assistant, productivity coaching</td>
+                            <td><span class="icon-check">✅</span> Asana AI: task intelligence, smart fields, predictions</td>
+                            <td><span class="icon-check">✅</span> AI-powered insights, predictive analytics</td>
+                            <td><span class="icon-check">✅</span> Notion AI (separate $10/mo): summarization, generation, Q&amp;A</td>
+                        </tr>
+                        <tr>
+                            <td class="tool-header">HubSpot Integration</td>
+                            <td><span class="icon-check">✅</span> Native integration (Unlimited plan+)<br>- Create tasks from HubSpot deals<br>- Bi-directional sync<br>- Automation triggers</td>
+                            <td><span class="icon-cross">❌</span> Limited (via Zapier only)</td>
+                            <td><span class="icon-check">✅</span> Via integrations</td>
+                            <td><span class="icon-check">✅</span> Via integrations</td>
+                            <td><span class="icon-warning">⚠️</span> Limited (via Zapier)</td>
+                        </tr>
+                        <tr>
+                            <td class="tool-header">Greenhouse Integration</td>
+                            <td><span class="icon-check">✅</span> Via Relay.app/Zapier</td>
+                            <td><span class="icon-cross">❌</span> Via Zapier only</td>
+                            <td><span class="icon-check">✅</span> Via integrations</td>
+                            <td><span class="icon-check">✅</span> Via integrations</td>
+                            <td><span class="icon-warning">⚠️</span> Via Zapier</td>
+                        </tr>
+                        <tr>
+                            <td class="tool-header">Slack Integration</td>
+                            <td><span class="icon-check">✅</span> Native, robust</td>
+                            <td><span class="icon-warning">⚠️</span> Basic</td>
+                            <td><span class="icon-check">✅</span> Native</td>
+                            <td><span class="icon-check">✅</span> Native</td>
+                            <td><span class="icon-check">✅</span> Native, strong</td>
+                        </tr>
+                        <tr>
+                            <td class="tool-header">Fireflies Integration</td>
+                            <td><span class="icon-check">✅</span> Via Zapier<br>Sync transcripts to task comments</td>
+                            <td><span class="icon-check">✅</span> Built-in meeting transcription (Motion's own AI notetaker)</td>
+                            <td><span class="icon-warning">⚠️</span> Via Zapier</td>
+                            <td><span class="icon-warning">⚠️</span> Via Zapier</td>
+                            <td><span class="icon-warning">⚠️</span> Via Zapier</td>
+                        </tr>
+                        <tr>
+                            <td class="tool-header">Jira Integration</td>
+                            <td><span class="icon-check">✅</span> Native</td>
+                            <td><span class="icon-cross">❌</span> Limited</td>
+                            <td><span class="icon-check">✅</span> Native</td>
+                            <td><span class="icon-check">✅</span> Native</td>
+                            <td><span class="icon-warning">⚠️</span> Via Zapier</td>
+                        </tr>
+                        <tr>
+                            <td class="tool-header">Client-Facing/External Sharing</td>
+                            <td><span class="icon-check">✅✅</span> EXCELLENT<br>- Public links (no account needed)<br>- Guest permissions<br>- Comment-only views<br>- Custom branding (Enterprise)</td>
+                            <td><span class="icon-warning">⚠️</span> Limited, mostly internal focus</td>
+                            <td><span class="icon-check">✅</span> Guest access, public links</td>
+                            <td><span class="icon-check">✅</span> Guest boards, client portals</td>
+                            <td><span class="icon-check">✅</span> Public pages, guest access</td>
+                        </tr>
+                        <tr>
+                            <td class="tool-header">Kanban Boards</td>
+                            <td><span class="icon-check">✅</span> Multiple view types including Kanban</td>
+                            <td><span class="icon-check">✅</span> Kanban view available</td>
+                            <td><span class="icon-check">✅</span> Board view</td>
+                            <td><span class="icon-check">✅</span> Board view (primary)</td>
+                            <td><span class="icon-check">✅</span> Database board view</td>
+                        </tr>
+                        <tr>
+                            <td class="tool-header">Meeting Notes → Tasks</td>
+                            <td><span class="icon-warning">⚠️</span> Via Fireflies/Zapier integration</td>
+                            <td><span class="icon-check">✅✅</span> Built-in AI notetaker joins meetings, auto-creates tasks</td>
+                            <td><span class="icon-warning">⚠️</span> Via third-party</td>
+                            <td><span class="icon-warning">⚠️</span> Via third-party</td>
+                            <td><span class="icon-warning">⚠️</span> Manual or via integrations</td>
+                        </tr>
+                        <tr>
+                            <td class="tool-header">Templates</td>
+                            <td><span class="icon-check">✅</span> Extensive template library</td>
+                            <td><span class="icon-check">✅</span> Project templates</td>
+                            <td><span class="icon-check">✅</span> Strong template system</td>
+                            <td><span class="icon-check">✅</span> Template center</td>
+                            <td><span class="icon-check">✅✅</span> Most flexible template creation</td>
+                        </tr>
+                        <tr>
+                            <td class="tool-header">Learning Curve</td>
+                            <td><span class="icon-warning">⚠️</span> Steeper (many features)</td>
+                            <td><span class="icon-warning">⚠️</span> Moderate (AI-driven)</td>
+                            <td><span class="icon-check">✅</span> Gentler, intuitive</td>
+                            <td><span class="icon-check">✅</span> Very intuitive, visual</td>
+                            <td><span class="icon-warning">⚠️</span> Moderate (flexible = complex)</td>
+                        </tr>
+                        <tr>
+                            <td class="tool-header">Storage</td>
+                            <td>100MB (Free)<br>Unlimited (Unlimited+)</td>
+                            <td>Not specified</td>
+                            <td>100+ attachments/task</td>
+                            <td>5-500GB by tier</td>
+                            <td>Unlimited file uploads (Plus+)</td>
+                        </tr>
+                        <tr>
+                            <td class="tool-header">Team Size Sweet Spot</td>
+                            <td>5-100 people</td>
+                            <td>1-25 people (individuals or small teams)</td>
+                            <td>10-500 people</td>
+                            <td>5-200 people</td>
+                            <td>2-50 people</td>
+                        </tr>
+                        <tr>
+                            <td class="tool-header">Pricing for 5-person team</td>
+                            <td>$35/mo (Unlimited, annual)<br>$60/mo (Business, annual)</td>
+                            <td>$60-95/mo (team pricing, 5 seats)</td>
+                            <td>$54.95/mo (Starter, annual)</td>
+                            <td>$60/mo (Standard, annual)</td>
+                            <td>$50/mo (Plus, annual)<br>$90/mo (Business, annual)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Detailed Analysis by Use Case</h2>
+            <h3>For Small Team Building a Business (Your Scenario)</h3>
+        </div>
+
+        <div class="section" id="clickup">
+            <h2>ClickUp - Best Overall for Trillium <span class="star-rating">⭐⭐⭐⭐⭐</span></h2>
+            
+            <h3>Why it fits:</h3>
+            <ul class="bullet-list">
+                <li><span class="icon-check">✅</span> Amy's preference confirmed in meetings - strong automation with Greenhouse/Slack</li>
+                <li><span class="icon-check">✅</span> Best HubSpot integration (native, bi-directional)</li>
+                <li><span class="icon-check">✅</span> Excellent client-facing features for consultant/client collaboration</li>
+                <li><span class="icon-check">✅</span> Satisfies Keenan's Kanban needs + Amy's advanced automation needs</li>
+                <li><span class="icon-check">✅</span> Price-to-feature ratio strongest at $7/user for Unlimited plan</li>
+                <li><span class="icon-check">✅</span> Can consolidate multiple tools into one platform</li>
+                <li><span class="icon-warning">⚠️</span> Fireflies integration requires Zapier, not native</li>
+                <li><span class="icon-warning">⚠️</span> Steeper learning curve due to feature depth</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>Recommendation: Start with Unlimited plan ($35/mo for 5 users) - gets you all essential features including HubSpot integration</strong>
+            </div>
+        </div>
+
+        <div class="section" id="motion">
+            <h2>Motion - Best for Productivity &amp; AI <span class="star-rating">⭐⭐⭐⭐</span></h2>
+            
+            <h3>Why it fits:</h3>
+            <ul class="bullet-list">
+                <li><span class="icon-check">✅</span> James's strong recommendation - he uses it daily</li>
+                <li><span class="icon-check">✅</span> Best AI features: auto-scheduling, AI Employees, built-in meeting assistant</li>
+                <li><span class="icon-check">✅</span> Solves Ryan's "meeting notes → tasks" problem natively (no Fireflies needed)</li>
+                <li><span class="icon-check">✅</span> Best for individual productivity and time management</li>
+                <li><span class="icon-warning">⚠️</span> Weaker integrations (no native HubSpot/Greenhouse)</li>
+                <li><span class="icon-warning">⚠️</span> Limited client-facing capabilities</li>
+                <li><span class="icon-warning">⚠️</span> Higher individual cost ($29-49/mo per person)</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>Recommendation: Consider for Ryan/Amy individually if productivity is the top priority, or wait 6 months to see if integration ecosystem improves</strong>
+            </div>
+        </div>
+
+        <div class="section" id="asana">
+            <h2>Asana - Best for Structured Growth <span class="star-rating">⭐⭐⭐⭐</span></h2>
+            
+            <h3>Why it fits:</h3>
+            <ul class="bullet-list">
+                <li><span class="icon-check">✅</span> Mature, enterprise-ready platform</li>
+                <li><span class="icon-check">✅</span> Strong Goals/Portfolios for tracking business metrics</li>
+                <li><span class="icon-check">✅</span> Excellent reporting and analytics</li>
+                <li><span class="icon-check">✅</span> Good integrations across the board</li>
+                <li><span class="icon-warning">⚠️</span> More expensive ($10.99/user minimum for key features)</li>
+                <li><span class="icon-warning">⚠️</span> Less flexible than ClickUp or Notion</li>
+                <li><span class="icon-warning">⚠️</span> AI features less advanced than Motion</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>Recommendation: Consider if you prioritize stability &amp; reporting over customization</strong>
+            </div>
+        </div>
+
+        <div class="section" id="monday">
+            <h2>Monday.com - Best for Visual/Non-Technical Teams <span class="star-rating">⭐⭐⭐</span></h2>
+            
+            <h3>Why it fits:</h3>
+            <ul class="bullet-list">
+                <li><span class="icon-check">✅</span> Most intuitive interface - lowest learning curve</li>
+                <li><span class="icon-check">✅</span> Strong automation (best auto-reporting per meeting notes)</li>
+                <li><span class="icon-check">✅</span> Visual/colorful - great for visual thinkers</li>
+                <li><span class="icon-warning">⚠️</span> Can get expensive as you scale ($19/user for Pro features)</li>
+                <li><span class="icon-warning">⚠️</span> Less flexibility than ClickUp</li>
+                <li><span class="icon-warning">⚠️</span> Storage limits can be restrictive</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>Recommendation: Consider if team is non-technical and values visual simplicity over power features</strong>
+            </div>
+        </div>
+
+        <div class="section" id="notion">
+            <h2>Notion - Best for Documentation-Heavy Teams <span class="star-rating">⭐⭐⭐</span></h2>
+            
+            <h3>Why it fits:</h3>
+            <ul class="bullet-list">
+                <li><span class="icon-check">✅</span> Ryan already familiar with it (from startup days)</li>
+                <li><span class="icon-check">✅</span> Best for creating client-facing content/templates</li>
+                <li><span class="icon-check">✅</span> Excellent knowledge management (docs, wikis, databases)</li>
+                <li><span class="icon-check">✅</span> Most flexible for custom workflows</li>
+                <li><span class="icon-warning">⚠️</span> Weaker PM-specific features vs dedicated tools</li>
+                <li><span class="icon-warning">⚠️</span> AI costs extra ($10/user/mo on top)</li>
+                <li><span class="icon-warning">⚠️</span> Limited HubSpot/Greenhouse integrations</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>Recommendation: Use as documentation hub alongside ClickUp rather than primary PM tool</strong>
+            </div>
+        </div>
+
+        <div class="recommendation" id="recommendation">
+            <h2>Final Recommendation for Trillium Team</h2>
+            
+            <h3>Primary Choice: ClickUp (Unlimited Plan)</h3>
+            <div class="cost-badge">Total Cost: $35/month for 5 users (annual billing)</div>
+
+            <h3>Reasoning:</h3>
+            <ol>
+                <li><span class="icon-check">✅</span> Amy's requirements met: Best automation, Greenhouse/Slack integration, client-facing features</li>
+                <li><span class="icon-check">✅</span> Keenan's requirements met: Kanban boards + much more as team grows</li>
+                <li><span class="icon-check">✅</span> HubSpot priority: Native integration ready when you launch HubSpot next week</li>
+                <li><span class="icon-check">✅</span> Best consolidation: Can replace multiple tools, reducing total SaaS spend</li>
+                <li><span class="icon-check">✅</span> Client work: Excellent external sharing for consultant-client collaboration</li>
+                <li><span class="icon-check">✅</span> Price: Best value at $7/user/month for feature set</li>
+            </ol>
+
+            <h3>Implementation Plan:</h3>
+            <ul class="bullet-list">
+                <li>Week 1: Ryan sets up basic structure, Keenan gets Kanban boards</li>
+                <li>Week 2: Connect HubSpot integration</li>
+                <li>Week 3: Set up Fireflies→ClickUp via Zapier for meeting notes</li>
+                <li>Week 4: Create client-facing templates and train Amy on automation</li>
+            </ul>
+
+            <h3>Supplemental Option: Motion for Ryan individually</h3>
+            <div class="cost-badge">Cost: $29/month (individual, annual)</div>
+
+            <p>If Ryan's primary pain point is meeting notes → tasks and calendar management, consider Motion for him personally while team uses ClickUp. The AI scheduling and built-in meeting assistant would specifically help with his overwhelm managing multiple stakeholder meetings.</p>
+
+            <div class="cost-badge">Total Cost: $35 (ClickUp for team) + $29 (Motion for Ryan) = $64/month</div>
+        </div>
+
+        <div class="section" id="integration">
+            <h2>Key Integration Notes (IMPORTANT)</h2>
+
+            <h3><span class="icon-check">✅</span> Available Now:</h3>
+            <ul class="bullet-list">
+                <li>HubSpot ↔ ClickUp: Native integration, bi-directional</li>
+                <li>Slack ↔ ClickUp: Native, robust</li>
+                <li>Fireflies ↔ ClickUp: Via Zapier (meeting transcripts → task comments)</li>
+                <li>Greenhouse ↔ ClickUp: Via Relay.app/Zapier</li>
+            </ul>
+
+            <h3><span class="icon-warning">⚠️</span> Pricing Notes (January 2026):</h3>
+            <ul class="bullet-list">
+                <li>All pricing confirmed current as of January 2026</li>
+                <li>ClickUp recently held pricing steady (no 2026 increase)</li>
+                <li>Monday.com increased prices 18% in February 2026</li>
+                <li>Motion pricing competitive for teams (significant discount at 3+ seats)</li>
+            </ul>
+        </div>
+
+        <div class="section questions" id="questions">
+            <h2>Questions for RFP Discussion</h2>
+            <ol>
+                <li><strong>Budget:</strong> Is $35-60/month acceptable for PM tool? (ClickUp Unlimited vs Business tier)</li>
+                <li><strong>Fireflies:</strong> Critical to keep Fireflies or can Motion's built-in AI replace it?</li>
+                <li><strong>Timeline:</strong> Need tool operational by when? (Impacts training timeline)</li>
+                <li><strong>Client-facing priority:</strong> How important are client portals vs internal team efficiency?</li>
+                <li><strong>Integrations:</strong> Any other tools beyond HubSpot/Greenhouse/Slack/Fireflies needed?</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Highlight current section in navigation
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.style.color = '';
+                link.style.background = '';
+                if (link.getAttribute('href') === '#' + current) {
+                    link.style.color = 'var(--color-accent)';
+                    link.style.background = 'var(--color-bg-surface)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
